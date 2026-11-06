@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+<title>ShubhSandesh App</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one phone-width column (max 440px) centred on a soft festive ground; bottom tab bar; flow screens replace tabs. */
+:root{
+  --bg:#f6f1f7; --surface:#ffffff; --surface-2:#fbf6f2; --ink:#1c1a33; --muted:#6b6680; --line:#ebe4ee;
+  --saffron:#ff7a1a; --pink:#d6246e; --gold:#ffcf5a; --wine:#5a0f33; --wa:#1faa59; --wa-ink:#ffffff;
+  --accent-soft:#fff1e6; --pink-soft:#fde8f1; --ok-soft:#e5f6ec; --shadow:0 6px 24px rgba(60,20,60,.08);
+  --font:"Poppins",system-ui,"Segoe UI","Noto Sans Devanagari",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13111c; --surface:#1e1b2b; --surface-2:#252137; --ink:#f4effa; --muted:#a59fb8; --line:#332e47;
+  --accent-soft:#3a2416; --pink-soft:#3b1a2a; --ok-soft:#163323; --shadow:0 6px 24px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13111c; --surface:#1e1b2b; --surface-2:#252137; --ink:#f4effa; --muted:#a59fb8; --line:#332e47;
+  --accent-soft:#3a2416; --pink-soft:#3b1a2a; --ok-soft:#163323; --shadow:0 6px 24px rgba(0,0,0,.35); color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--saffron);outline-offset:2px}
+.app{max-width:440px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;background:var(--bg);position:relative}
+.screen{flex:1;display:flex;flex-direction:column;gap:16px;padding-block:16px 96px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.flow .screen{padding-bottom:120px}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.25}
+h1{font-size:22px;font-weight:700}
+h2{font-size:18px;font-weight:600}
+h3{font-size:15px;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+i[data-lucide],svg.lucide{width:20px;height:20px;flex:none}
+
+/* top bars */
+.top{display:flex;align-items:center;gap:12px}
+.top .grow{flex:1;min-width:0}
+.brand{display:flex;align-items:center;gap:10px}
+.mark{width:38px;height:38px;border-radius:12px;background:linear-gradient(140deg,var(--saffron),var(--pink));display:grid;place-items:center;color:#fff;font-weight:700}
+.iconbtn{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center}
+
+/* surfaces */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.hero{background:linear-gradient(150deg,#ff8a2a 0%,#e5427a 60%,#b81d63 100%);color:#fff;border:0;border-radius:22px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero .muted{color:rgba(255,255,255,.85)}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;
+  background:repeating-conic-gradient(rgba(255,255,255,.18) 0 10deg,transparent 10deg 20deg);opacity:.6}
+.hero>*{position:relative;z-index:1}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--accent-soft);color:var(--saffron)}
+.pill.ok{background:var(--ok-soft);color:var(--wa)}
+.pill.pink{background:var(--pink-soft);color:var(--pink)}
+.pill.white{background:rgba(255,255,255,.22);color:#fff}
+.banner{display:flex;gap:10px;align-items:flex-start;background:var(--accent-soft);border-radius:14px;padding:12px 14px;font-size:13px}
+.banner button{background:none;border:0;padding:0;color:var(--pink);font-weight:600;text-decoration:underline}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 18px;border-radius:14px;border:0;font-weight:600;font-size:16px;text-decoration:none}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn.saffron{background:linear-gradient(120deg,var(--saffron),var(--pink));color:#fff}
+.btn.wa{background:var(--wa);color:var(--wa-ink);min-height:60px;font-size:17px}
+.btn.ghost{background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+.btn.light{background:#fff;color:#b81d63}
+.btn.block{width:100%}
+.btn.sm{min-height:40px;font-size:14px;padding:0 14px;border-radius:12px}
+.row{display:flex;gap:10px;align-items:center}
+.row.wrap{flex-wrap:wrap}
+.row>.grow{flex:1;min-width:0}
+.stack{display:flex;flex-direction:column;gap:10px}
+
+/* festival list */
+.fest{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line);background:none;border-left:0;border-right:0;border-bottom:0;width:100%;text-align:left}
+.fest:first-of-type{border-top:0}
+.datebox{width:50px;flex:none;border-radius:12px;background:var(--surface-2);text-align:center;padding:6px 0;line-height:1.1}
+.datebox b{display:block;font-size:18px}
+.datebox span{font-size:11px;text-transform:uppercase;color:var(--muted);letter-spacing:.05em}
+
+/* notification mock */
+.notif{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow)}
+.notif .mark{width:32px;height:32px;border-radius:9px;font-size:13px}
+
+/* bottom tabs */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs .in{max-width:440px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+.tabs button{background:none;border:0;padding:10px 0 12px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--muted);font-weight:500}
+.tabs button.on{color:var(--pink);font-weight:600}
+
+/* flow */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.steps div{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted)}
+.steps div::before{content:"";height:5px;border-radius:9px;background:var(--line)}
+.steps div.on{color:var(--ink);font-weight:600}
+.steps div.on::before,.steps div.done::before{background:linear-gradient(90deg,var(--saffron),var(--pink))}
+.footbar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.footbar .in{max-width:440px;margin:0 auto;display:flex;gap:10px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.footbar .btn{flex:1}
+.footbar .btn.ghost{flex:0 0 auto}
+
+/* chips & options */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-size:14px;font-weight:500;display:inline-flex;gap:6px;align-items:center}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.designs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.designs button{border:2px solid transparent;border-radius:14px;padding:3px;background:none;display:flex;flex-direction:column;gap:4px;align-items:stretch;font-size:11px;color:var(--muted)}
+.designs button.on{border-color:var(--pink);color:var(--ink);font-weight:600}
+.option{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;border:1.5px solid var(--line);background:var(--surface);border-radius:16px;padding:14px}
+.option.on{border-color:var(--pink);background:var(--pink-soft)}
+.radio{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:none;margin-top:2px;display:grid;place-items:center}
+.option.on .radio{border-color:var(--pink)}
+.option.on .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--pink)}
+.msgopt{white-space:pre-line;font-size:14px}
+textarea,input[type=text],input[type=tel],select{width:100%;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;font-size:15px}
+textarea{min-height:130px;resize:vertical;line-height:1.55}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:600}
+.toggle{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;background:none;padding:0}
+.switch{width:46px;height:28px;border-radius:99px;background:var(--line);position:relative;flex:none;transition:background .2s}
+.switch::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s}
+.toggle.on .switch{background:var(--wa)}
+.toggle.on .switch::after{left:21px}
+
+/* contacts */
+.search{position:relative}
+.search i,.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.search input{padding-left:44px}
+.clist{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.crow{display:flex;align-items:center;gap:12px;padding:11px 14px;border:0;border-top:1px solid var(--line);background:none;width:100%;text-align:left}
+.crow:first-child{border-top:0}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:14px;flex:none;background:var(--surface-2);color:var(--ink)}
+.av.c{background:var(--accent-soft);color:var(--saffron)} .av.p{background:var(--pink-soft);color:var(--pink)} .av.f{background:var(--ok-soft);color:var(--wa)}
+.crow .grow{flex:1;min-width:0}
+.crow .nm{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tick{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;flex:none;color:#fff}
+.tick.on{background:var(--wa);border-color:var(--wa)}
+.tick svg{width:16px;height:16px}
+.tick:not(.on) svg{display:none}
+.count{font-variant-numeric:tabular-nums}
+
+/* send */
+.progress{height:10px;border-radius:9px;background:var(--line);overflow:hidden}
+.progress div{height:100%;background:linear-gradient(90deg,var(--wa),#5cd68c);border-radius:9px;transition:width .3s}
+.bubble{background:#dcf8c6;color:#1b1b1b;border-radius:14px 14px 4px 14px;padding:12px 14px;font-size:14px;white-space:pre-line;align-self:flex-end;max-width:92%}
+.chat{background:#efe7dd;border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.big-person{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.big-person .av{width:72px;height:72px;font-size:24px}
+
+/* sheet & toast */
+.scrim{position:fixed;inset:0;background:rgba(20,10,30,.45);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);width:100%;max-width:440px;border-radius:22px 22px 0 0;padding-block:20px calc(20px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:14px;max-height:90%;overflow:auto}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px);box-shadow:var(--shadow)}
+
+/* plans */
+.plan{border:1.5px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--surface)}
+.plan.on{border-color:var(--pink);background:var(--pink-soft)}
+.price{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.feat{display:flex;gap:8px;font-size:14px;align-items:flex-start}
+.feat svg{width:18px;height:18px;color:var(--wa);margin-top:2px}
+
+/* ============ the greeting post (an image in the real app; same in both themes) ============ */
+.post{container-type:inline-size;position:relative;aspect-ratio:4/5;width:100%;max-width:100%;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:7cqw;isolation:isolate}
+.post .mandala{position:absolute;z-index:-1;width:120cqw;height:120cqw;left:-10cqw;top:12cqw;border-radius:50%;
+  background:repeating-conic-gradient(var(--pc-a) 0 7.5deg,transparent 7.5deg 15deg);opacity:.16;
+  -webkit-mask:radial-gradient(circle,transparent 18%,#000 19%,#000 32%,transparent 33%,transparent 40%,#000 41%,#000 58%,transparent 59%);
+          mask:radial-gradient(circle,transparent 18%,#000 19%,#000 32%,transparent 33%,transparent 40%,#000 41%,#000 58%,transparent 59%)}
+.post .ptop{display:flex;align-items:center;gap:3cqw}
+.post .plogo{width:12cqw;height:12cqw;border-radius:3cqw;display:grid;place-items:center;font-weight:700;font-size:4.6cqw;background:var(--pc-a);color:var(--pc-bg)}
+.post .pfirm{font-size:4.2cqw;font-weight:600;line-height:1.2;color:var(--pc-t)}
+.post .pmid{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.5cqw}
+.post .ptitle{font-size:11cqw;font-weight:700;line-height:1.05;color:var(--pc-t);text-wrap:balance}
+.post .phi{font-size:7cqw;font-weight:600;color:var(--pc-a);line-height:1.3}
+.post .pline{font-size:3.6cqw;color:var(--pc-t);opacity:.9;max-width:80%;margin-top:1cqw}
+.post .pfoot{border-top:.4cqw solid color-mix(in srgb,var(--pc-t) 30%,transparent);padding-top:3cqw;display:flex;flex-direction:column;gap:.6cqw;color:var(--pc-t);line-height:1.25}
+.post .pfoot b{font-size:4.6cqw}
+.post .pfoot span{font-size:3.4cqw;opacity:.92}
+.post .pphoto{width:12cqw;height:12cqw;border-radius:50%;background:var(--pc-a);color:var(--pc-bg);display:grid;place-items:center;font-weight:700;font-size:4.5cqw;margin-left:auto}
+.post.d0{--pc-bg:#c21f63;--pc-t:#ffffff;--pc-a:#ffe08a;background:linear-gradient(160deg,#ff8a2a 0%,#e3407a 55%,#b81d63 100%)}
+.post.d1{--pc-bg:#3d0a24;--pc-t:#ffeec4;--pc-a:#ffcf5a;background:radial-gradient(120% 80% at 50% 0%,#8a1a4d 0%,#4a0d2c 60%,#2e0619 100%)}
+.post.d2{--pc-bg:#fff6e0;--pc-t:#5a0f33;--pc-a:#d6246e;background:linear-gradient(170deg,#fffaf0 0%,#ffe6a8 100%)}
+.post.d3{--pc-bg:#0f5132;--pc-t:#ffffff;--pc-a:#ffcf5a;background:linear-gradient(165deg,#178a4a 0%,#0c4a2c 100%)}
+/* diya */
+.diya{position:relative;width:26cqw;height:20cqw;margin-bottom:1cqw}
+.diya .flame{position:absolute;left:50%;top:0;width:7cqw;height:11cqw;transform:translateX(-50%);border-radius:50% 50% 50% 50%/65% 65% 35% 35%;
+  background:radial-gradient(circle at 50% 70%,#fff 0 18%,#ffe27a 30%,#ff9a1f 65%,rgba(255,120,0,0) 72%);filter:drop-shadow(0 0 3cqw rgba(255,190,60,.85));animation:flick 1.6s ease-in-out infinite}
+.diya .bowl{position:absolute;left:0;right:0;bottom:0;height:9cqw;border-radius:0 0 50% 50%/0 0 100% 100%;background:linear-gradient(180deg,#ffb347,#c4561a)}
+.diya .bowl::before{content:"";position:absolute;left:0;right:0;top:-1.6cqw;height:3.2cqw;border-radius:50%;background:#8a3a10}
+.sym{width:22cqw;height:22cqw;border-radius:50%;display:grid;place-items:center;margin-bottom:1cqw;
+  background:radial-gradient(circle,var(--pc-a) 0 22%,transparent 23%),repeating-conic-gradient(var(--pc-a) 0 12deg,transparent 12deg 24deg);opacity:.95}
+@keyframes flick{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.06,.94) rotate(2deg)}}
+@media (prefers-reduced-motion: reduce){.diya .flame{animation:none}*{transition:none!important}}
+.post-wrap{max-width:300px;width:100%;margin:0 auto;box-shadow:0 14px 40px rgba(120,20,70,.22);border-radius:16px}
+.designs .post{border-radius:10px}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.center{text-align:center;align-items:center}
+.done-ring{width:96px;height:96px;border-radius:50%;background:var(--ok-soft);display:grid;place-items:center;color:var(--wa);margin:12px auto 0}
+.done-ring svg{width:52px;height:52px}
+</style>
+
+<div class="app" id="app"></div>
+<div id="layer"></div>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+/* ---------------- sample data ---------------- */
+const DEMO_TODAY = new Date(2026, 10, 6); // demo is fixed to Fri 6 Nov 2026, two days before Diwali
+const FESTS = [
+  {id:'diwali',   name:'Diwali',            hi:'दीपावली',         date:'2026-11-08', title:'Happy Diwali',        titleHi:'शुभ दीपावली', diya:true},
+  {id:'bhaidooj', name:'Bhai Dooj',         hi:'भाई दूज',          date:'2026-11-11', title:'Happy Bhai Dooj',     titleHi:'भाई दूज की शुभकामनाएँ'},
+  {id:'gurpurab', name:'Guru Nanak Jayanti',hi:'गुरु नानक जयंती',   date:'2026-11-24', title:'Happy Gurpurab',      titleHi:'गुरुपर्व की लख-लख बधाइयाँ'},
+  {id:'christmas',name:'Christmas',         hi:'क्रिसमस',          date:'2026-12-25', title:'Merry Christmas',     titleHi:'क्रिसमस की शुभकामनाएँ'},
+  {id:'newyear',  name:'New Year',          hi:'नव वर्ष',          date:'2027-01-01', title:'Happy New Year 2027', titleHi:'नव वर्ष मंगलमय हो'},
+  {id:'sankranti',name:'Makar Sankranti',   hi:'मकर संक्रांति',     date:'2027-01-14', title:'Happy Makar Sankranti',titleHi:'मकर संक्रांति की शुभकामनाएँ'},
+  {id:'republic', name:'Republic Day',      hi:'गणतंत्र दिवस',      date:'2027-01-26', title:'Happy Republic Day',  titleHi:'गणतंत्र दिवस की शुभकामनाएँ'},
+];
+const DESIGNS = ['Saffron','Royal','Gold','Green'];
+const GROUPS = {c:'Clients', p:'Business partners', f:'Family & friends'};
+const PROFESSIONS = ['CA / Tax consultant','Lawyer','Insurance agent','Doctor','Shop owner','Salon','Other'];
+const RAW = [
+ ['Suresh Sharma','Sharma ji','c'],['Rajesh Gupta','Gupta ji','c'],['Meena Khandelwal','Meena ji','c'],['Anil Jain','Jain sahab','c'],
+ ['Vikram Singh Shekhawat','Shekhawat ji','c'],['Mahesh Saini','Saini ji','c'],['Kavita Bansal','Kavita ji','c'],['Om Prakash Kumawat','Kumawat ji','c'],
+ ['Sunil Poonia','Poonia ji','c'],['Ritu Mittal','Ritu ji','c'],['Harish Choudhary','Choudhary sahab','c'],['Deepak Soni','Soni ji','c'],
+ ['Lalit Modi Traders','Lalit ji','c'],['Sanjay Goyal','Goyal ji','c'],['Neha Rathore','Neha ji','c'],['Pawan Agrawal','Pawan ji','c'],
+ ['Bhawani Shankar','Bhawani ji','c'],['Gopal Swami','Swami ji','c'],['Shyam Sundar Joshi','Joshi ji','c'],['Asha Verma','Asha ji','c'],
+ ['Manoj Tak (Bank)','Manoj ji','p'],['Pradeep Mathur Advocate','Mathur sahab','p'],['Shekhar Insurance','Shekhar ji','p'],['Ramniwas Printers','Ramniwas ji','p'],
+ ['Kailash Chartered','Kailash ji','p'],['Vinod Computer Centre','Vinod ji','p'],
+ ['Pooja Agarwal','Pooja','f'],['Rohan Agarwal','Rohan','f'],['Mamta Bhabhi','Bhabhi','f'],['Naresh Mama ji','Mama ji','f'],
+ ['Sarla Bua','Bua ji','f'],['Ajay Bhaiya','Bhaiya','f'],['Dinesh (school friend)','Dinesh','f'],['Kamla Mausi','Mausi','f'],
+];
+const SAMPLE_CONTACTS = RAW.map((r,i)=>({id:'s'+i, name:r[0], call:r[1], group:r[2], phone:'99999 0'+String(1000+i*37).slice(-4), sample:true}));
+const DEFAULT_PROFILE = {firm:'Agarwal Tax Consultants', owner:'Ramesh Agarwal', profession:'CA / Tax consultant', town:'Sikar', phone:'99999 01234', logo:'AT', sample:true};
+
+const MSGS = {
+  diwali:{
+    en:['Wishing you and your family a very Happy Diwali! May this festival of lights bring good health, wealth and happiness to your home.',
+        'Happy Diwali! Thank you for your trust this year. May Maa Lakshmi bless you with prosperity.',
+        'May the diyas of Diwali light up your life with joy and success. Happy Diwali to you and your family!'],
+    hi:['आपको और आपके परिवार को दीपावली की हार्दिक शुभकामनाएँ! यह दीपों का त्योहार आपके घर में सुख, समृद्धि और खुशियाँ लाए।',
+        'शुभ दीपावली! इस वर्ष आपके विश्वास के लिए धन्यवाद। माँ लक्ष्मी की कृपा आप पर सदा बनी रहे।',
+        'दीपों की रोशनी आपके जीवन को खुशियों और सफलता से भर दे। आपको सपरिवार दीपावली की शुभकामनाएँ!'],
+    hg:['Aapko aur aapke parivaar ko Diwali ki dher saari shubhkamnayein! Yeh roshni ka tyohaar aapke ghar sukh aur samriddhi laaye.',
+        'Happy Diwali! Is saal aapke bharose ke liye dil se dhanyavaad. Maa Lakshmi ki kripa sada bani rahe.',
+        'Diyon ki roshni aapki zindagi khushiyon se bhar de. Aapko sapariwar Diwali ki hardik shubhkamnayein!']
+  }
+};
+function messagesFor(f, lang){
+  if (MSGS[f.id]) return MSGS[f.id][lang];
+  return {
+    en:[`Wishing you and your family a very ${f.title}! May this ${f.name} bring joy, good health and success.`,
+        `${f.title}! Thank you for being with us. Warm wishes to you and your family.`],
+    hi:[`आपको और आपके परिवार को ${f.hi} की हार्दिक शुभकामनाएँ! यह पर्व आपके जीवन में खुशियाँ और सफलता लाए।`,
+        `${f.hi} के पावन अवसर पर आपको सपरिवार शुभकामनाएँ। हमारे साथ बने रहने के लिए धन्यवाद।`],
+    hg:[`Aapko aur aapke parivaar ko ${f.name} ki dher saari shubhkamnayein! Yeh tyohaar khushiyaan aur safalta laaye.`,
+        `${f.name} ki hardik badhai! Hamesha saath dene ke liye dil se dhanyavaad.`]
+  }[lang];
+}
+const PRO_LINES = {
+  'CA / Tax consultant':'May the balance sheet of your life always show happiness on the credit side.',
+  'Lawyer':'May every matter in your life be decided in favour of joy and peace.',
+  'Insurance agent':'May you and your loved ones always stay safe, secure and protected.',
+  'Doctor':'Wishing you the best gift of all, good health for you and your family.',
+  'Shop owner':'May your home and business grow brighter every year.',
+  'Salon':'May you shine brighter than ever this festive season.',
+  'Other':'May the year ahead bring you new success.'
+};
+const TONES = ['Warm','Respectful','Short','Thank-you'];
+function aiWrite(f, tone, lang, prof){
+  const p = PRO_LINES[prof] || PRO_LINES.Other;
+  const n = f.name;
+  const out = {
+    en:{Warm:`${f.title}! ${p} Lots of love and warm wishes to your whole family.`,
+        Respectful:`Respected Sir/Madam, on the auspicious occasion of ${n}, please accept our heartfelt wishes. ${p}`,
+        Short:`${f.title}! ${p}`,
+        'Thank-you':`Thank you for trusting us this year. ${p} ${f.title} to you and your family!`},
+    hi:{Warm:`${f.titleHi}! आपके पूरे परिवार को ढेर सारा प्यार और शुभकामनाएँ। आने वाला साल खुशियों से भरा हो।`,
+        Respectful:`आदरणीय, ${f.hi} के शुभ अवसर पर हमारी ओर से हार्दिक शुभकामनाएँ स्वीकार करें।`,
+        Short:`${f.titleHi}! सदा खुश रहें।`,
+        'Thank-you':`इस वर्ष हम पर भरोसा करने के लिए धन्यवाद। आपको सपरिवार ${f.hi} की शुभकामनाएँ!`},
+    hg:{Warm:`${f.title}! Aapke poore parivaar ko dher saara pyaar aur shubhkamnayein. Aane wala saal khushiyon se bhara ho.`,
+        Respectful:`Aadarniya, ${n} ke shubh avsar par hamari or se hardik shubhkamnayein sweekar karein.`,
+        Short:`${f.title}! Sada khush rahiye.`,
+        'Thank-you':`Is saal hum par bharosa karne ke liye dhanyavaad. Aapko sapariwar ${n} ki shubhkamnayein!`}
+  };
+  return out[lang][tone];
+}
+
+/* ---------------- state ---------------- */
+const KEY = 'shubhsandesh-proto-v1';
+function fresh(){ return {profile:{...DEFAULT_PROFILE}, plan:'regular', contacts:SAMPLE_CONTACTS.map(c=>({...c})), camps:{}}; }
+let S; try { S = JSON.parse(localStorage.getItem(KEY)) || fresh(); } catch(e){ S = fresh(); }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+const U = {view:'home', tab:'home', fest:'diwali', step:0, q:'', grp:'all', cq:'', cgrp:'all', waiting:false, aiBusy:false, aiTone:'Warm', sheet:null};
+
+function camp(id){
+  if (!S.camps[id]) S.camps[id] = {design:0, lang:'en', pick:0, msg:messagesFor(fest(id),'en')[0], useName:true, sel:S.contacts.map(c=>c.id),
+    when:'morning', time:'07:00', status:'draft', sent:[], skipped:[], aiUses:0};
+  return S.camps[id];
+}
+const fest = id => FESTS.find(f=>f.id===id);
+const esc = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const daysTo = f => Math.round((new Date(f.date+'T00:00:00') - DEMO_TODAY)/864e5);
+const dateParts = f => { const d = new Date(f.date+'T00:00:00'); return {day:d.getDate(), mon:d.toLocaleDateString('en-IN',{month:'short'}), wd:d.toLocaleDateString('en-IN',{weekday:'long'})}; };
+const whenText = d => d===0?'today':d===1?'tomorrow':`in ${d} days`;
+const initials = n => n.replace(/\(.*?\)/g,'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const firstName = () => S.profile.owner.trim().split(/\s+/)[0] || 'ji';
+const timeLabel = t => { const [h,m]=t.split(':').map(Number); return `${(h%12)||12}:${String(m).padStart(2,'0')} ${h<12?'AM':'PM'}`; };
+const fullMessage = (c, cp) => `${cp.useName ? c.call + ',\n\n' : ''}${cp.msg.trim()}\n\n— ${S.profile.owner}\n${S.profile.firm}, ${S.profile.town}`;
+const ic = (n, cls='') => `<i data-lucide="${n}" class="${cls}"></i>`;
+
+/* ---------------- the greeting post ---------------- */
+function post(f, design, opts={}){
+  const p = S.profile;
+  return `<div class="post d${design}">
+    <div class="mandala"></div>
+    <div class="ptop"><span class="plogo">${esc(p.logo||initials(p.firm))}</span><span class="pfirm">${esc(p.firm)}</span></div>
+    <div class="pmid">
+      ${f.diya ? '<div class="diya"><div class="flame"></div><div class="bowl"></div></div>' : '<div class="sym"></div>'}
+      <div class="ptitle">${esc(f.title)}</div>
+      <div class="phi">${esc(f.titleHi)}</div>
+      ${opts.thumb ? '' : `<div class="pline">Wishing you and your family joy and prosperity</div>`}
+    </div>
+    <div class="pfoot"><b>${esc(p.owner)}</b><span>${esc(p.firm)} · ${esc(p.town)}</span><span>${esc(p.phone)}</span></div>
+  </div>`;
+}
+
+/* ---------------- screens ---------------- */
+function homeScreen(){
+  const up = FESTS.filter(f=>daysTo(f)>=0);
+  const next = up[0], cp = camp(next.id), d = daysTo(next), dp = dateParts(next);
+  const sel = cp.sel.length, sent = cp.sent.length;
+  let action;
+  if (cp.status==='done') action = `<p class="muted">Sent to ${sent} people. ${cp.skipped.length? cp.skipped.length+' skipped.' : ''}</p>
+      <button class="btn light block" data-act="openSend" data-arg="${next.id}">${ic('list-checks')} See who got it</button>`;
+  else if (cp.status==='sending') action = `<p class="muted">${sent} of ${sel} sent. Pick up where you stopped.</p>
+      <button class="btn light block" data-act="openSend" data-arg="${next.id}">${ic('send')} Continue sending</button>`;
+  else if (cp.status==='scheduled') action = `<p class="muted">Ready for ${sel} people. We will remind you on ${dp.wd} at ${timeLabel(cp.time)}.</p>
+      <div class="row"><button class="btn light grow" data-act="openSend" data-arg="${next.id}">${ic('send')} Send now</button>
+      <button class="btn sm" style="background:rgba(255,255,255,.2);color:#fff;min-height:52px" data-act="openFlow" data-arg="${next.id}">Edit</button></div>`;
+  else action = `<p class="muted">Your greeting with your name and logo can be ready in 2 minutes.</p>
+      <button class="btn light block" data-act="openFlow" data-arg="${next.id}">${ic('sparkles')} Prepare my greeting</button>`;
+
+  return `<div class="screen">
+    <div class="top"><div class="brand grow"><div class="mark">शु</div><div><h3>ShubhSandesh</h3><p class="small muted">Namaste, ${esc(firstName())} ji</p></div></div>
+      <button class="iconbtn" aria-label="Business profile" data-act="tab" data-arg="profile">${ic('user-round')}</button></div>
+    ${S.profile.sample ? `<div class="banner">${ic('info')}<div>You are seeing a sample business. <button data-act="tab" data-arg="profile">Put your own name</button> to see your own posts.</div></div>`:''}
+    <div class="hero card">
+      <div class="row"><span class="pill white">${ic('bell-ring')} ${next.name} ${whenText(d)}</span></div>
+      <div><h1 style="font-size:26px">${esc(next.name)} is on ${dp.wd}, ${dp.day} ${dp.mon}</h1></div>
+      ${action}
+    </div>
+    ${cp.status==='scheduled' ? `<div class="stack"><p class="label">Your reminder will look like this</p>
+      <div class="notif"><div class="mark">शु</div><div class="grow"><p class="small"><b>ShubhSandesh</b> · ${dp.wd} ${timeLabel(cp.time)}</p>
+      <p class="small">Your ${esc(next.name)} greetings are ready. Tap to start sending to ${sel} people.</p></div></div></div>` : ''}
+    <div class="card">
+      <div><h2>Coming festivals</h2><p class="small muted">We remind you 2 days before each one</p></div>
+      <div>${up.slice(1).map(f=>{const p=dateParts(f), c=S.camps[f.id];
+        return `<button class="fest" data-act="openFlow" data-arg="${f.id}"><div class="datebox"><b>${p.day}</b><span>${p.mon}</span></div>
+          <div class="grow" style="flex:1;min-width:0"><h3>${esc(f.name)}</h3><p class="small muted">${esc(f.hi)} · ${whenText(daysTo(f))}</p></div>
+          ${c && c.status!=='draft' ? '<span class="pill ok">Ready</span>' : `<span class="small muted">Prepare</span>`} ${ic('chevron-right')}</button>`}).join('')}</div>
+    </div>
+    <p class="small muted center" style="display:flex;justify-content:center">Prototype · demo date Fri 6 Nov 2026</p>
+  </div>`;
+}
+
+function stepBar(){
+  const names = ['Design','Message','People','When'];
+  return `<div class="steps">${names.map((n,i)=>`<div class="${i===U.step?'on':i<U.step?'done':''}">${n}</div>`).join('')}</div>`;
+}
+function flowTop(title){
+  const f = fest(U.fest);
+  return `<div class="top"><button class="iconbtn" aria-label="Back" data-act="back">${ic('arrow-left')}</button>
+    <div class="grow"><p class="small muted">${esc(f.name)} greeting</p><h2>${title}</h2></div></div>${stepBar()}`;
+}
+
+function designStep(){
+  const f = fest(U.fest), cp = camp(f.id);
+  return `<div class="screen">${flowTop('Choose a design')}
+    <div class="post-wrap">${post(f, cp.design)}</div>
+    <p class="small" style="display:flex;align-items:center;justify-content:center;gap:8px;color:var(--wa);font-weight:500">${ic('circle-check')} Your name, logo, town and number are added</p>
+    <div class="designs">${DESIGNS.map((n,i)=>`<button class="${i===cp.design?'on':''}" data-act="design" data-arg="${i}" aria-label="${n} design">${post(f,i,{thumb:true})}<span>${n}</span></button>`).join('')}</div>
+    <button class="option" data-act="aiDesign">${ic('wand-sparkles')}<div class="grow"><h3>Make a new design with AI</h3><p class="small muted">${S.plan==='ai'?`Up to 20 per festival · ${cp.aiUses} used`:'Part of the AI plan'}</p></div>${S.plan==='ai'?'':'<span class="pill pink">AI plan</span>'}</button>
+  </div>`;
+}
+
+function messageStep(){
+  const f = fest(U.fest), cp = camp(f.id), list = messagesFor(f, cp.lang);
+  return `<div class="screen">${flowTop('Pick the message')}
+    <div class="chips" role="group" aria-label="Language">${[['en','English'],['hi','हिंदी'],['hg','Hinglish']].map(([k,n])=>`<button class="chip ${cp.lang===k?'on':''}" data-act="lang" data-arg="${k}">${n}</button>`).join('')}</div>
+    <div class="stack">${list.map((m,i)=>`<button class="option ${cp.msg===m?'on':''}" data-act="pickMsg" data-arg="${i}"><span class="radio"></span><span class="msgopt">${esc(m)}</span></button>`).join('')}</div>
+    <div class="card" style="gap:10px">
+      <div class="row"><h3 class="grow">${ic('sparkles')} Ask AI to write one</h3>${S.plan==='ai'?`<span class="small muted count">${cp.aiUses}/20 used</span>`:'<span class="pill pink">AI plan</span>'}</div>
+      <p class="small muted">Written for a ${esc(S.profile.profession)}, in the language you chose.</p>
+      <div class="chips">${TONES.map(t=>`<button class="chip ${U.aiTone===t?'on':''}" data-act="tone" data-arg="${t}">${t}</button>`).join('')}</div>
+      <button class="btn ghost sm" data-act="aiMsg" ${U.aiBusy?'disabled':''}>${U.aiBusy?ic('loader-circle','spin')+' Writing…':ic('wand-sparkles')+' Write with AI'}</button>
+    </div>
+    <div class="field"><label for="msgEdit">Change the words if you like</label><textarea id="msgEdit" data-in="msg">${esc(cp.msg)}</textarea></div>
+    <button class="toggle ${cp.useName?'on':''}" data-act="useName"><span class="switch"></span><span class="grow"><b>Start with their name</b><br><span class="small muted">Like "Sharma ji," at the top</span></span></button>
+    <div class="stack"><p class="label">How Sharma ji will see it</p><div class="chat"><div class="bubble" id="msgPreview">${esc(fullMessage(S.contacts[0]||{call:'Sharma ji'}, cp))}</div></div></div>
+  </div>`;
+}
+
+function contactRows(list, cp, selectable){
+  if (!list.length) return `<div class="crow"><p class="muted small">No one matches. Try another name.</p></div>`;
+  return list.map(c=>`<${selectable?'button':'div'} class="crow" ${selectable?`data-act="tick" data-arg="${c.id}" aria-pressed="${cp.sel.includes(c.id)}"`:''}>
+    <span class="av ${c.group}">${esc(initials(c.name))}</span>
+    <span class="grow"><span class="nm" style="display:block">${esc(c.name)}</span><span class="small muted">${GROUPS[c.group]} · ${esc(c.phone)}</span></span>
+    ${selectable?`<span class="tick ${cp.sel.includes(c.id)?'on':''}">${ic('check')}</span>`:''}
+  </${selectable?'button':'div'}>`).join('');
+}
+function filtered(q, grp){
+  q = q.trim().toLowerCase();
+  return S.contacts.filter(c=>(grp==='all'||c.group===grp) && (!q || c.name.toLowerCase().includes(q) || c.call.toLowerCase().includes(q)));
+}
+function peopleStep(){
+  const cp = camp(U.fest), list = filtered(U.q, U.grp);
+  const allOn = list.length && list.every(c=>cp.sel.includes(c.id));
+  return `<div class="screen">${flowTop('Who gets it?')}
+    <div class="card" style="flex-direction:row;align-items:center"><div class="grow" style="flex:1"><p class="price count" id="selCount">${cp.sel.length}</p><p class="small muted">of ${S.contacts.length} people will get your greeting</p></div>
+      <button class="btn ghost sm" data-act="allToggle">${allOn?'Untick all':'Tick all'}</button></div>
+    <div class="search">${ic('search')}<input type="text" id="peopleSearch" data-in="q" placeholder="Search a name" value="${esc(U.q)}" aria-label="Search contacts"></div>
+    <div class="chips">${[['all','Everyone'],...Object.entries(GROUPS)].map(([k,n])=>`<button class="chip ${U.grp===k?'on':''}" data-act="grp" data-arg="${k}">${n}</button>`).join('')}</div>
+    <div class="clist" id="peopleList">${contactRows(list, cp, true)}</div>
+  </div>`;
+}
+
+function whenStep(){
+  const f = fest(U.fest), cp = camp(f.id), dp = dateParts(f);
+  return `<div class="screen">${flowTop('When to send?')}
+    <button class="option ${cp.when==='morning'?'on':''}" data-act="when" data-arg="morning"><span class="radio"></span><span class="grow"><h3>On ${esc(f.name)} morning</h3><p class="small muted">We remind you on ${dp.wd}, ${dp.day} ${dp.mon}. Then you tap Send for each person.</p></span></button>
+    ${cp.when==='morning'?`<div class="field" style="padding-left:34px"><label for="timePick">Remind me at</label><select id="timePick" data-in="time">${['06:00','06:30','07:00','07:30','08:00','09:00','10:00'].map(t=>`<option value="${t}" ${cp.time===t?'selected':''}>${timeLabel(t)}</option>`).join('')}</select></div>`:''}
+    <button class="option ${cp.when==='now'?'on':''}" data-act="when" data-arg="now"><span class="radio"></span><span class="grow"><h3>Send now</h3><p class="small muted">Start sending straight away.</p></span></button>
+    <div class="card" style="gap:8px"><p class="label">Check before you finish</p>
+      <div class="row"><div style="width:84px;flex:none">${post(f,cp.design,{thumb:true})}</div>
+      <div class="grow stack" style="gap:4px"><p class="small"><b>${DESIGNS[cp.design]}</b> design</p><p class="small muted" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">${esc(cp.msg)}</p><p class="small"><b class="count">${cp.sel.length}</b> people</p></div></div>
+    </div>
+    <div class="banner">${ic('shield-check')}<div>Messages go from <b>your own WhatsApp</b>. Nothing is sent without your tap, so your number stays safe.</div></div>
+  </div>`;
+}
+
+function sendScreen(){
+  const f = fest(U.fest), cp = camp(f.id);
+  const queue = cp.sel.filter(id=>!cp.sent.includes(id) && !cp.skipped.includes(id));
+  const total = cp.sel.length, done = cp.sent.length + cp.skipped.length;
+  if (!queue.length) return doneScreen();
+  const c = S.contacts.find(x=>x.id===queue[0]);
+  const text = fullMessage(c, cp);
+  const href = c.sample ? `https://wa.me/?text=${encodeURIComponent(text)}` : `https://wa.me/91${c.phone.replace(/\D/g,'').slice(-10)}?text=${encodeURIComponent(text)}`;
+  return `<div class="screen">
+    <div class="top"><button class="iconbtn" aria-label="Back to home" data-act="home">${ic('x')}</button>
+      <div class="grow"><p class="small muted">Sending ${esc(f.name)} greetings</p><h2 class="count">${done} of ${total} done</h2></div></div>
+    <div class="progress"><div style="width:${total?done/total*100:0}%"></div></div>
+    <div class="card big-person">
+      <span class="av ${c.group}">${esc(initials(c.name))}</span>
+      <h2>${esc(c.name)}</h2><p class="small muted">${GROUPS[c.group]} · ${esc(c.phone)}</p>
+    </div>
+    <div class="chat"><div style="width:62%;align-self:flex-end">${post(f,cp.design,{thumb:true})}</div><div class="bubble">${esc(text)}</div></div>
+    ${U.waiting ? `<div class="card center" style="gap:10px"><h3>Did it go to ${esc(c.call)}?</h3>
+        <div class="row" style="width:100%"><button class="btn wa grow" data-act="sent">${ic('check')} Yes, next person</button></div>
+        <div class="row" style="width:100%"><a class="btn ghost grow sm" href="${href}" target="_blank" rel="noopener">Open again</a><button class="btn ghost grow sm" data-act="skip">Skip</button></div></div>`
+      : `<a class="btn wa block" href="${href}" target="_blank" rel="noopener" data-act="opened">${ic('message-circle')} Send on WhatsApp</a>
+         <div class="row"><button class="btn ghost grow sm" data-act="skip">Skip ${esc(c.call)}</button><button class="btn ghost grow sm" data-act="sent">Already sent</button></div>`}
+    <p class="small muted">${c.sample?'This is a sample contact, so WhatsApp will ask you to pick a chat. With your real contacts it opens their chat directly. ':''}In the full app the greeting picture goes along with the message.</p>
+  </div>`;
+}
+
+function doneScreen(){
+  const f = fest(U.fest), cp = camp(f.id);
+  if (cp.status!=='done'){ cp.status='done'; save(); }
+  const sk = cp.skipped.map(id=>S.contacts.find(c=>c.id===id)).filter(Boolean);
+  return `<div class="screen center">
+    <div class="done-ring">${ic('check')}</div>
+    <h1>${esc(f.name)} greetings sent</h1>
+    <p class="muted">You wished <b class="count">${cp.sent.length}</b> people from your own WhatsApp.${sk.length?` ${sk.length} skipped.`:''}</p>
+    <div style="width:200px">${post(f,cp.design,{thumb:true})}</div>
+    ${sk.length?`<div class="card" style="width:100%;text-align:left"><h3>Skipped</h3><p class="small muted">${sk.map(c=>esc(c.name)).join(', ')}</p>
+      <button class="btn ghost sm" data-act="retrySkipped">Send to them now</button></div>`:''}
+    <button class="btn primary block" data-act="home">Back to home</button>
+  </div>`;
+}
+
+function contactsTab(){
+  const list = filtered(U.cq, U.cgrp);
+  return `<div class="screen">
+    <div class="top"><div class="grow"><h1>Contacts</h1><p class="small muted count">${S.contacts.length} people</p></div>
+      <button class="btn saffron sm" data-act="addContact">${ic('user-plus')} Add</button></div>
+    <button class="option" data-act="importPhone">${ic('smartphone')}<div class="grow"><h3>Bring contacts from my phone</h3><p class="small muted">Pick who to add. Nobody is messaged.</p></div>${ic('chevron-right')}</button>
+    <div class="search">${ic('search')}<input type="text" id="contactSearch" data-in="cq" placeholder="Search a name" value="${esc(U.cq)}" aria-label="Search contacts"></div>
+    <div class="chips">${[['all','Everyone'],...Object.entries(GROUPS)].map(([k,n])=>`<button class="chip ${U.cgrp===k?'on':''}" data-act="cgrp" data-arg="${k}">${n} <span class="count muted">${k==='all'?S.contacts.length:S.contacts.filter(c=>c.group===k).length}</span></button>`).join('')}</div>
+    <div class="clist" id="contactList">${contactRows(list, null, false)}</div>
+  </div>`;
+}
+
+function profileTab(){
+  const p = S.profile;
+  const plan = (id, name, price, feats) => `<div class="plan ${S.plan===id?'on':''}">
+    <div class="row"><h3 class="grow">${name}</h3>${S.plan===id?'<span class="pill ok">Your plan</span>':''}</div>
+    <div><span class="price">₹${price}</span><span class="muted"> / year</span></div>
+    <p class="small muted">GST included · less than ₹${Math.ceil(+price.replace(',','')/365)} a day</p>
+    <div class="stack" style="gap:6px">${feats.map(t=>`<div class="feat">${ic('check')}<span>${t}</span></div>`).join('')}</div>
+    ${S.plan===id?'':`<button class="btn ghost sm" data-act="plan" data-arg="${id}">Choose ${name}</button>`}
+  </div>`;
+  return `<div class="screen">
+    <div class="top"><div class="grow"><h1>My business</h1><p class="small muted">This goes on every greeting</p></div></div>
+    <div class="card">
+      <div class="field"><label for="pfFirm">Business name</label><input type="text" id="pfFirm" data-in="pf:firm" value="${esc(p.firm)}"></div>
+      <div class="field"><label for="pfOwner">Your name</label><input type="text" id="pfOwner" data-in="pf:owner" value="${esc(p.owner)}"></div>
+      <div class="row"><div class="field grow"><label for="pfTown">Town</label><input type="text" id="pfTown" data-in="pf:town" value="${esc(p.town)}"></div>
+        <div class="field" style="width:110px"><label for="pfLogo">Logo letters</label><input type="text" id="pfLogo" maxlength="3" data-in="pf:logo" value="${esc(p.logo)}"></div></div>
+      <div class="field"><label for="pfPhone">Phone on the greeting</label><input type="tel" id="pfPhone" data-in="pf:phone" value="${esc(p.phone)}"></div>
+      <div class="field"><label>Your work</label><div class="chips">${PROFESSIONS.map(x=>`<button class="chip ${p.profession===x?'on':''}" data-act="prof" data-arg="${esc(x)}">${x}</button>`).join('')}</div></div>
+      <button class="btn ghost sm" data-act="previewPost">${ic('eye')} See my greeting</button>
+    </div>
+    <h2>Plans</h2>
+    ${plan('regular','Regular','999',['Reminder before every festival','Ready designs with your name and logo','Ready messages in Hindi, English and Hinglish','Send from your own WhatsApp'])}
+    ${plan('ai','AI','1,999',['Everything in Regular','AI writes messages for your kind of work','AI makes new designs, up to 20 per festival'])}
+    <p class="small muted">Prototype: choosing a plan here does not take any payment.</p>
+    <button class="btn ghost sm" data-act="reset">${ic('rotate-ccw')} Start the demo again</button>
+  </div>`;
+}
+
+/* ---------------- render ---------------- */
+const app = document.getElementById('app'), layer = document.getElementById('layer');
+function render(){
+  let html, flow = false;
+  if (U.view==='flow'){ flow = true; html = [designStep, messageStep, peopleStep, whenStep][U.step]();
+    html += `<div class="footbar"><div class="in">${U.step>0?`<button class="btn ghost" data-act="prev" aria-label="Previous step">${ic('arrow-left')}</button>`:''}
+      <button class="btn saffron" data-act="next">${U.step<3?'Next':(camp(U.fest).when==='now'?'Start sending':'Set reminder')} ${ic('arrow-right')}</button></div></div>`;
+  } else if (U.view==='send'){ flow = true; html = sendScreen(); }
+  else {
+    html = U.tab==='home'?homeScreen():U.tab==='contacts'?contactsTab():profileTab();
+    html += `<nav class="tabs"><div class="in">${[['home','house','Home'],['contacts','users','Contacts'],['profile','store','My business']].map(([k,i,n])=>`<button class="${U.tab===k?'on':''}" data-act="tab" data-arg="${k}" aria-current="${U.tab===k}">${ic(i)}${n}</button>`).join('')}</div></nav>`;
+  }
+  app.className = 'app' + (flow?' flow':'');
+  app.innerHTML = html;
+  renderLayer();
+  icons();
+}
+function icons(){ try { window.lucide && lucide.createIcons(); } catch(e){} }
+function renderLayer(){
+  const s = U.sheet;
+  if (!s){ layer.innerHTML=''; return; }
+  let body = '';
+  if (s==='upgrade') body = `<h2>This needs the AI plan</h2><p class="muted">AI writes messages and makes designs for your kind of work. ₹1,999 a year, GST included.</p>
+    <button class="btn saffron block" data-act="plan" data-arg="ai">Try the AI plan in this demo</button><button class="btn ghost block" data-act="closeSheet">Not now</button>`;
+  if (s==='add') body = `<h2>Add a contact</h2>
+    <div class="field"><label for="ncName">Full name</label><input type="text" id="ncName" placeholder="Like Suresh Sharma"></div>
+    <div class="field"><label for="ncCall">What you call them</label><input type="text" id="ncCall" placeholder="Like Sharma ji"></div>
+    <div class="field"><label for="ncPhone">WhatsApp number</label><input type="tel" id="ncPhone" placeholder="10 digit mobile number" inputmode="numeric"></div>
+    <div class="field"><label for="ncGroup">Group</label><select id="ncGroup">${Object.entries(GROUPS).map(([k,n])=>`<option value="${k}">${n}</option>`).join('')}</select></div>
+    <p class="small muted" id="ncErr" hidden>Please add a name and a 10 digit number.</p>
+    <button class="btn saffron block" data-act="saveContact">Save contact</button><button class="btn ghost block" data-act="closeSheet">Cancel</button>`;
+  if (s==='preview') body = `<h2>Your greeting</h2><div class="post-wrap">${post(fest('diwali'), camp('diwali').design)}</div><button class="btn ghost block" data-act="closeSheet">Close</button>`;
+  if (s==='reset') body = `<h2>Start the demo again?</h2><p class="muted">Your changes in this demo will be cleared.</p>
+    <button class="btn primary block" data-act="doReset">Yes, start again</button><button class="btn ghost block" data-act="closeSheet">Cancel</button>`;
+  layer.innerHTML = `<div class="scrim" data-act="scrim"><div class="sheet" role="dialog" aria-modal="true">${body}</div></div>`;
+}
+let toastT;
+function toast(msg){ clearTimeout(toastT); let t=document.querySelector('.toast'); if(!t){t=document.createElement('div');t.className='toast';t.setAttribute('role','status');document.body.appendChild(t);} t.textContent=msg; toastT=setTimeout(()=>t.remove(),2600); }
+const top0 = () => window.scrollTo(0,0);
+
+/* ---------------- actions ---------------- */
+const A = {
+  tab(a){ U.view='home'; U.tab=a; U.sheet=null; top0(); },
+  home(){ U.view='home'; U.tab='home'; U.waiting=false; top0(); },
+  openFlow(id){ U.fest=id; camp(id); U.view='flow'; U.step=0; U.q=''; U.grp='all'; top0(); },
+  openSend(id){ U.fest=id; U.view='send'; U.waiting=false; top0(); },
+  back(){ if (U.step>0) U.step--; else U.view='home'; top0(); },
+  prev(){ U.step--; top0(); },
+  next(){ const cp=camp(U.fest);
+    if (U.step===2 && !cp.sel.length){ toast('Tick at least one person'); return false; }
+    if (U.step<3){ U.step++; top0(); return; }
+    if (cp.when==='now'){ cp.status='sending'; U.view='send'; }
+    else { cp.status='scheduled'; U.view='home'; U.tab='home'; toast(`Reminder set for ${fest(U.fest).name} morning`); }
+    save(); top0(); },
+  design(i){ camp(U.fest).design=+i; save(); },
+  aiDesign(){ if (S.plan!=='ai'){ U.sheet='upgrade'; return; } const cp=camp(U.fest);
+    if (cp.aiUses>=20){ toast('You have used all 20 for this festival'); return false; }
+    cp.aiUses++; cp.design=(cp.design+1)%DESIGNS.length; save(); toast('New design made. Not happy? Tap again.'); },
+  lang(k){ const cp=camp(U.fest); cp.lang=k; cp.msg=messagesFor(fest(U.fest),k)[0]; save(); },
+  pickMsg(i){ const cp=camp(U.fest); cp.msg=messagesFor(fest(U.fest),cp.lang)[+i]; save(); },
+  tone(t){ U.aiTone=t; },
+  aiMsg(){ if (S.plan!=='ai'){ U.sheet='upgrade'; return; } const cp=camp(U.fest);
+    if (cp.aiUses>=20){ toast('You have used all 20 for this festival'); return false; }
+    U.aiBusy=true; setTimeout(()=>{ U.aiBusy=false; cp.aiUses++; cp.msg=aiWrite(fest(U.fest),U.aiTone,cp.lang,S.profile.profession); save(); render(); toast('AI wrote a new message'); },1100); },
+  useName(){ const cp=camp(U.fest); cp.useName=!cp.useName; save(); },
+  tick(id){ const cp=camp(U.fest); cp.sel = cp.sel.includes(id) ? cp.sel.filter(x=>x!==id) : [...cp.sel,id]; save(); },
+  allToggle(){ const cp=camp(U.fest), list=filtered(U.q,U.grp).map(c=>c.id), allOn=list.every(id=>cp.sel.includes(id));
+    cp.sel = allOn ? cp.sel.filter(id=>!list.includes(id)) : [...new Set([...cp.sel,...list])]; save(); },
+  grp(k){ U.grp=k; }, cgrp(k){ U.cgrp=k; },
+  when(k){ camp(U.fest).when=k; save(); },
+  opened(){ U.waiting=true; setTimeout(render,50); return 'keep'; },
+  sent(){ const cp=camp(U.fest), q=cp.sel.filter(id=>!cp.sent.includes(id)&&!cp.skipped.includes(id)); if(q[0]) cp.sent.push(q[0]); cp.status='sending'; U.waiting=false; save(); top0(); },
+  skip(){ const cp=camp(U.fest), q=cp.sel.filter(id=>!cp.sent.includes(id)&&!cp.skipped.includes(id)); if(q[0]) cp.skipped.push(q[0]); cp.status='sending'; U.waiting=false; save(); top0(); },
+  retrySkipped(){ const cp=camp(U.fest); cp.skipped=[]; cp.status='sending'; save(); top0(); },
+  addContact(){ U.sheet='add'; }, closeSheet(){ U.sheet=null; },
+  scrim(_,e){ if (e.target.classList.contains('scrim')) U.sheet=null; else return false; },
+  importPhone(){ toast('In the phone app this opens your phone contacts to pick from'); return false; },
+  saveContact(){ const g=id=>document.getElementById(id).value.trim(); const name=g('ncName'), phone=g('ncPhone').replace(/\D/g,'').slice(-10);
+    if (!name || phone.length!==10){ document.getElementById('ncErr').hidden=false; return false; }
+    const c={id:'u'+Date.now(), name, call:g('ncCall')||name.split(' ')[0]+' ji', group:g('ncGroup'), phone:phone.slice(0,5)+' '+phone.slice(5)};
+    S.contacts.unshift(c); Object.values(S.camps).forEach(cp=>{ if(cp.status!=='done') cp.sel.unshift(c.id); }); save(); U.sheet=null; toast(`${name} added`); },
+  prof(x){ S.profile.profession=x; S.profile.sample=false; save(); },
+  previewPost(){ U.sheet='preview'; },
+  plan(id){ S.plan=id; U.sheet=null; save(); toast(`${id==='ai'?'AI':'Regular'} plan chosen (demo, no payment)`); },
+  reset(){ U.sheet='reset'; },
+  doReset(){ S=fresh(); save(); Object.assign(U,{view:'home',tab:'home',sheet:null,q:'',cq:'',grp:'all',cgrp:'all'}); toast('Demo started again'); top0(); },
+};
+document.addEventListener('click', e=>{
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const fn = A[el.dataset.act]; if (!fn) return;
+  const r = fn(el.dataset.arg, e);
+  if (r==='keep') return;          // let the link open WhatsApp
+  if (el.tagName==='A' && el.getAttribute('href')==='#') e.preventDefault();
+  if (r!==false) render();
+});
+document.addEventListener('input', e=>{
+  const k = e.target.dataset.in; if (!k) return;
+  const v = e.target.value;
+  if (k==='msg'){ const cp=camp(U.fest); cp.msg=v; save(); const p=document.getElementById('msgPreview'); if(p) p.textContent=fullMessage(S.contacts[0]||{call:'Sharma ji'},cp); }
+  else if (k==='q'){ U.q=v; document.getElementById('peopleList').innerHTML=contactRows(filtered(U.q,U.grp),camp(U.fest),true); icons(); }
+  else if (k==='cq'){ U.cq=v; document.getElementById('contactList').innerHTML=contactRows(filtered(U.cq,U.cgrp),null,false); }
+  else if (k==='time'){ camp(U.fest).time=v; save(); }
+  else if (k.startsWith('pf:')){ S.profile[k.slice(3)]=v; S.profile.sample=false; save(); }
+});
+document.addEventListener('keydown', e=>{ if (e.key==='Escape' && U.sheet){ U.sheet=null; render(); } });
+window.addEventListener('load', icons);
+render();
+</script>
+
+</html>

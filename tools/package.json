@@ -1,0 +1,14 @@
+{
+  "name": "shubhsandesh-tools",
+  "private": true,
+  "description": "Render the ShubhSandesh trailer and pamphlet to MP4, PNG and PDF",
+  "scripts": {
+    "trailer": "node record.js ../marketing/trailer/index.html ../marketing/trailer/ShubhSandesh-trailer.mp4 1280 720 30",
+    "trailer:vertical": "node record.js ../marketing/trailer/index.html ../marketing/trailer/ShubhSandesh-trailer-vertical.mp4 720 1280 30",
+    "pamphlet": "node pamphlet.js ../marketing/pamphlet"
+  },
+  "dependencies": {
+    "ffmpeg-static": "5.2.0",
+    "playwright-core": "1.48.2"
+  }
+}

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ShubhSandesh Pamphlet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ink:#1c1a33; --sub:#5f5c75; --line:#e6e3ee;
+  --saffron:#ff7a1a; --soft:#fff0e3; --pink:#d6246e; --gold:#ffcf5a; --wine:#5a0f33; --wa:#1faa59;
+  --f:"Poppins","Segoe UI",system-ui,sans-serif;
+}
+@page{size:A5;margin:0}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{margin:0;background:#e9e7ef;font-family:var(--f);color:var(--ink)}
+.page{width:148mm;height:210mm;margin:8mm auto;background:#fff;position:relative;overflow:hidden;page-break-after:always;break-after:page}
+@media print{html,body{background:#fff}.page{margin:0}}
+
+/* ---------- FRONT ---------- */
+.front{display:flex;flex-direction:column;
+  background:radial-gradient(60% 40% at 100% 0%, #ffe3cc 0%, rgba(255,227,204,0) 70%), radial-gradient(60% 35% at 0% 100%, #fde0ec 0%, rgba(253,224,236,0) 70%), #fff}
+.top{display:flex;align-items:center;gap:2.6mm;padding:8mm 9mm 0}
+.mark{width:9mm;height:9mm;border-radius:2.4mm;background:linear-gradient(135deg,var(--saffron),var(--pink));color:#fff;display:grid;place-items:center;font-weight:700;font-size:4.2mm}
+.name{font-weight:700;font-size:5mm;letter-spacing:-.02em;line-height:1}
+.name small{display:block;font-weight:500;font-size:2.7mm;color:var(--sub);letter-spacing:0;margin-top:.6mm}
+.soon{margin-left:auto;font-size:2.5mm;font-weight:600;color:#b04a00;background:var(--soft);padding:1.2mm 3mm;border-radius:10mm;letter-spacing:.06em;text-transform:uppercase}
+.hero{display:grid;grid-template-columns:1fr 46mm;gap:5mm;align-items:center;padding:6mm 9mm 0}
+.hero h1{margin:0;font-size:7.6mm;line-height:1.12;letter-spacing:-.03em;font-weight:700}
+.hero h1 em{font-style:normal;color:var(--saffron)}
+.hero .hi{margin:2.4mm 0 0;font-size:3.3mm;color:var(--sub);line-height:1.5}
+.hero .pain{margin:3.4mm 0 0;font-size:3mm;line-height:1.45;padding:2.4mm 3mm;border-radius:2mm;background:#f4f3f7;color:#4a4760}
+.hero .pain b{color:var(--ink)}
+
+.post{position:relative;width:46mm;aspect-ratio:1;border-radius:2.4mm;overflow:hidden;color:#fff;display:flex;flex-direction:column;align-items:center;
+  background:radial-gradient(90% 70% at 50% 35%, #a3245a 0%, #6b1340 55%, var(--wine) 100%);box-shadow:0 2mm 6mm rgba(90,15,51,.3);transform:rotate(2deg)}
+.toran{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:0 .5mm}
+.toran i{width:3.4mm;height:3.4mm;margin-top:-1mm;border-radius:50%;background:radial-gradient(circle at 40% 40%, #ffd65a, #ff8a1a 70%)}
+.toran i:nth-child(even){margin-top:-.3mm;background:radial-gradient(circle at 40% 40%, #ffe48a, #ffb31a 70%)}
+.post .t{margin-top:9mm;font-size:6.2mm;font-weight:700;color:var(--gold);line-height:1.1}
+.post .e{font-size:1.8mm;letter-spacing:.3em;color:#ffe2b0;margin-top:.6mm}
+.post .m{font-size:2.1mm;text-align:center;padding:0 4mm;margin-top:2mm;line-height:1.4;color:#fff3e6}
+.post .m b{color:var(--gold)}
+.post .foot{position:absolute;left:0;right:0;bottom:0;height:7.6mm;background:#fff;color:var(--ink);display:flex;align-items:center;gap:1.6mm;padding:0 2.4mm}
+.post .logo{width:4.8mm;height:4.8mm;border-radius:50%;background:var(--wine);color:var(--gold);display:grid;place-items:center;font-size:1.8mm;font-weight:700}
+.post .foot b{font-size:2mm;display:block;line-height:1.2}
+.post .foot div{line-height:1.2}
+.post .foot span{display:block;font-size:1.5mm;line-height:1.3;color:var(--sub)}
+
+.sec{padding:0 9mm}
+.label{font-size:2.5mm;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--saffron);margin:0 0 2mm}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.6mm;margin-top:6mm}
+.step{background:#fff;border:1px solid var(--line);border-radius:2.4mm;padding:2.8mm}
+.step .n{width:5.4mm;height:5.4mm;border-radius:50%;background:var(--saffron);color:#fff;font-weight:700;font-size:2.8mm;display:grid;place-items:center}
+.step b{display:block;font-size:3mm;line-height:1.3;margin-top:1.8mm}
+.step span{display:block;font-size:2.4mm;color:var(--sub);line-height:1.4;margin-top:.8mm}
+.who{margin-top:4.6mm;display:flex;flex-wrap:wrap;gap:1.4mm}
+.who span{font-size:2.5mm;padding:1mm 2.4mm;border-radius:10mm;background:#f4f3f7;color:#4a4760}
+.fest{margin-top:1.6mm;font-size:2.5mm;color:var(--sub)}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:2.6mm;margin-top:4.6mm}
+.plan{border:1px solid var(--line);border-radius:2.6mm;padding:2.8mm 3.2mm;background:#fff}
+.plan.ai{border:.5mm solid var(--saffron)}
+.plan .pn{font-size:2.5mm;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.plan.ai .pn{color:var(--saffron)}
+.plan .pr{font-size:6.4mm;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.plan .pr small{font-size:2.6mm;color:var(--sub);font-weight:500;letter-spacing:0}
+.plan ul{margin:1mm 0 0;padding:0;list-style:none;font-size:2.4mm;color:var(--sub);line-height:1.55}
+.plan li::before{content:"✓ ";color:var(--wa);font-weight:700}
+.gst{font-size:2.3mm;color:var(--sub);margin-top:1.4mm;text-align:center}
+.bottom{margin-top:auto;background:var(--ink);color:#fff;padding:4mm 9mm;display:flex;justify-content:space-between;align-items:center;gap:4mm}
+.bottom .cta{font-size:3mm;line-height:1.35}
+.bottom .cta b{color:var(--gold)}
+.bottom .ph{font-size:2.6mm;color:#c9c6d8;text-align:right;white-space:nowrap}
+.bottom .ph .fill{display:inline-block;width:30mm;border-bottom:1px solid #8c88a3;margin-left:1mm;vertical-align:-.6mm}
+
+/* ---------- BACK ---------- */
+.back{padding:8mm 9mm 7mm;display:flex;flex-direction:column}
+.back h2{margin:0;font-size:6mm;letter-spacing:-.02em;line-height:1.15}
+.back h2 em{font-style:normal;color:var(--saffron)}
+.back .intro{margin:1.2mm 0 0;font-size:2.7mm;color:var(--sub);line-height:1.45}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:2.4mm 4mm;margin-top:4mm}
+.field{font-size:2.5mm;color:var(--sub)}
+.field i{display:block;border-bottom:1px solid #b9b5c9;height:5mm}
+.q{margin-top:3.2mm}
+.q .qt{font-size:2.9mm;font-weight:600;line-height:1.3;display:flex;gap:1.6mm}
+.q .qt .num{color:var(--saffron);flex:0 0 auto}
+.q .hi{font-size:2.4mm;color:var(--sub);margin:.3mm 0 0 4.4mm;line-height:1.35}
+.opts{display:flex;flex-wrap:wrap;gap:1.2mm 4mm;margin:1.4mm 0 0 4.4mm;font-size:2.6mm;color:#3b3852}
+.opts span{display:inline-flex;align-items:center;gap:1.3mm}
+.opts span::before{content:"";width:2.9mm;height:2.9mm;border:.3mm solid #8c88a3;border-radius:.6mm;flex:0 0 auto}
+.lines{margin:1.4mm 0 0 4.4mm}
+.lines i{display:block;border-bottom:1px solid #b9b5c9;height:5.2mm}
+.stars{display:flex;gap:2.4mm;margin:1.4mm 0 0 4.4mm}
+.stars span{width:6.4mm;height:6.4mm;border:.3mm solid #8c88a3;border-radius:50%;display:grid;place-items:center;font-size:2.6mm;color:var(--sub);font-weight:600}
+.stars small{font-size:2.3mm;color:var(--sub);align-self:center}
+.inline{display:inline-block;width:18mm;border-bottom:1px solid #b9b5c9;margin-left:1mm}
+.thanks{margin-top:auto;padding-top:3mm;border-top:1px dashed #cfcbdc;display:flex;justify-content:space-between;align-items:center;gap:3mm;font-size:2.5mm;color:var(--sub)}
+.thanks b{color:var(--ink)}
+.thanks .opts{margin:0}
+</style>
+</head>
+<body>
+
+<!-- FRONT -->
+<section class="page front">
+  <div class="top">
+    <div class="mark">शु</div>
+    <div class="name">ShubhSandesh<small>शुभ संदेश · Festival greetings made easy</small></div>
+    <div class="soon">Coming soon</div>
+  </div>
+
+  <div class="hero">
+    <div>
+      <h1>Your festival greetings, <em>ready before you are.</em></h1>
+      <p class="hi">त्योहार की शुभकामनाएँ, आपके नाम और लोगो के साथ, पहले से तैयार।</p>
+      <p class="pain">Still downloading images from Google, asking the children to add your name, and sending to <b>200 people one by one</b> all morning?</p>
+    </div>
+    <div class="post">
+      <div class="toran"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="t">शुभ दीपावली</div>
+      <div class="e">HAPPY DIWALI</div>
+      <div class="m">Dear <b>Gupta ji</b>, wishing you and your family a bright and prosperous Diwali.</div>
+      <div class="foot"><div class="logo">AT</div><div><b>Agarwal Tax Consultants</b><span>Sikar · 98290 XXXXX</span></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="steps">
+      <div class="step"><div class="n">1</div><b>We remind you</b><span>A few days before every festival you choose.<br>हर त्योहार से पहले याद दिलाएँगे।</span></div>
+      <div class="step"><div class="n">2</div><b>Your greeting is ready</b><span>With your name, logo and phone number.<br>आपका ग्रीटिंग तैयार मिलेगा।</span></div>
+      <div class="step"><div class="n">3</div><b>Send on WhatsApp</b><span>One tap per person, from your own number.<br>हर व्यक्ति को एक टैप में।</span></div>
+    </div>
+
+    <div class="who">
+      <span>Chartered Accountants</span><span>Lawyers</span><span>Insurance agents</span><span>Property dealers</span><span>Consultants</span><span>Jewellers</span><span>Boutiques</span><span>Salons</span><span>Restaurants</span><span>Shops</span>
+    </div>
+    <div class="fest">Diwali · Holi · Eid · Raksha Bandhan · Ganesh Chaturthi · Navratri · Christmas · Pongal · Onam · New Year, and more</div>
+
+    <div class="plans">
+      <div class="plan">
+        <div class="pn">Regular</div>
+        <div class="pr">₹999 <small>/ year</small></div>
+        <ul><li>Festival reminders</li><li>Ready-made greetings with your logo</li><li>Your contact list</li><li>Help sending on WhatsApp</li></ul>
+      </div>
+      <div class="plan ai">
+        <div class="pn">AI</div>
+        <div class="pr">₹1,999 <small>/ year</small></div>
+        <ul><li>Everything in Regular</li><li>AI writes your message</li><li>AI makes your design</li><li>Hindi, English and more</li></ul>
+      </div>
+    </div>
+    <div class="gst">GST included · Less than ₹3 a day · No hidden charges</div>
+  </div>
+
+  <div class="bottom">
+    <div class="cta"><b>Your opinion matters.</b><br>Please fill the short form on the back.</div>
+    <div class="ph">Call / WhatsApp<span class="fill"></span></div>
+  </div>
+</section>
+
+<!-- BACK -->
+<section class="page back">
+  <h2>Tell us what you think. <em>आपकी राय।</em></h2>
+  <p class="intro">We are building ShubhSandesh for people like you. Your honest answers will decide what we build. It takes 2 minutes.</p>
+
+  <div class="fields">
+    <div class="field">Name / नाम<i></i></div>
+    <div class="field">Business or profession / व्यवसाय<i></i></div>
+    <div class="field">Town / शहर<i></i></div>
+    <div class="field">Phone (optional) / फ़ोन<i></i></div>
+  </div>
+
+  <div class="q">
+    <div class="qt"><span class="num">1</span>How do you send festival greetings today?</div>
+    <div class="hi">आज आप त्योहार की शुभकामनाएँ कैसे भेजते हैं?</div>
+    <div class="opts"><span>Download from Google</span><span>Children / family help</span><span>Designer or print shop</span><span>Canva or other app</span><span>I don't send</span></div>
+  </div>
+
+  <div class="q">
+    <div class="qt"><span class="num">2</span>How many people do you greet each festival?</div>
+    <div class="hi">हर त्योहार पर आप कितने लोगों को शुभकामनाएँ भेजते हैं?</div>
+    <div class="opts"><span>Under 50</span><span>50 – 200</span><span>200 – 500</span><span>More than 500</span></div>
+  </div>
+
+  <div class="q">
+    <div class="qt"><span class="num">3</span>Opening WhatsApp and tapping Send once for each person is:</div>
+    <div class="hi">हर व्यक्ति के लिए WhatsApp पर एक बार "Send" दबाना, कैसा लगा?</div>
+    <div class="opts"><span>Fine for me</span><span>Okay for a few people</span><span>Too slow, I want it automatic</span></div>
+  </div>
+
+  <div class="q">
+    <div class="qt"><span class="num">4</span>Would you use ShubhSandesh?</div>
+    <div class="hi">क्या आप शुभ संदेश इस्तेमाल करेंगे?</div>
+    <div class="opts"><span>Yes, definitely</span><span>Maybe</span><span>No</span></div>
+  </div>
+
+  <div class="q">
+    <div class="qt"><span class="num">5</span>Which plan would you choose?</div>
+    <div class="hi">आप कौन सा प्लान चुनेंगे?</div>
+    <div class="opts"><span>Regular ₹999 / year</span><span>AI ₹1,999 / year</span><span>Neither</span></div>
+  </div>
+
+  <div class="q">
+    <div class="qt"><span class="num">6</span>The price feels:</div>
+    <div class="hi">कीमत कैसी लगी?</div>
+    <div class="opts"><span>Cheap</span><span>Fair</span><span>Too high</span><span>I would pay ₹<i class="inline"></i> / year</span></div>
+  </div>
+
+  <div class="q">
+    <div class="qt"><span class="num">7</span>Rate the idea</div>
+    <div class="hi">इस आइडिया को रेटिंग दें</div>
+    <div class="stars"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><small>1 = not useful, 5 = very useful</small></div>
+  </div>
+
+  <div class="q">
+    <div class="qt"><span class="num">8</span>What would make it more useful for you?</div>
+    <div class="hi">इसे और उपयोगी बनाने के लिए क्या चाहिए?</div>
+    <div class="lines"><i></i><i></i></div>
+  </div>
+
+  <div class="thanks">
+    <div class="opts"><span>Contact me when it launches / लॉन्च होने पर मुझे बताएँ</span></div>
+    <div><b>Thank you!</b> धन्यवाद</div>
+  </div>
+</section>
+
+</body>
+</html>
