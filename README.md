@@ -10,6 +10,12 @@
 </p>
 
 <p align="center">
+  <a href="https://raghav1000000000.github.io/shubhsandesh/prototype/"><b>▶ Try the live demo</b></a> ·
+  <a href="https://raghav1000000000.github.io/shubhsandesh/marketing/trailer/">Watch the trailer</a> ·
+  <a href="marketing/pamphlet/ShubhSandesh-pamphlet-A5.pdf">Pamphlet</a>
+</p>
+
+<p align="center">
   <img alt="Stage: prototype" src="https://img.shields.io/badge/stage-prototype-ff7a1a">
   <img alt="Platform: mobile first" src="https://img.shields.io/badge/platform-mobile%20first-d6246e">
   <img alt="Languages: English, Hindi, Hinglish" src="https://img.shields.io/badge/languages-English%20%7C%20हिंदी%20%7C%20Hinglish-5a0f33">
@@ -46,7 +52,9 @@ ShubhSandesh does the boring parts and leaves the person in control.
 
 ## Try the prototype
 
-The clickable prototype is a single HTML file with sample data. It needs no build step.
+**Live demo: https://raghav1000000000.github.io/shubhsandesh/prototype/** (open it on your phone)
+
+The clickable prototype is a single HTML file with sample data. It needs no build step. To run it locally:
 
 ```bash
 # from the repo root
